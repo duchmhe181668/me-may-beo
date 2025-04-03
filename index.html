@@ -73,11 +73,6 @@
       opacity: 1;
       transform: scale(1);
     }
-    #meme {
-      margin-top: 20px;
-      max-width: 300px;
-      display: none;
-    }
     .credit {
       position: fixed;
       bottom: 10px;
@@ -133,7 +128,6 @@
   </form>
 
   <div id="result" class="result"></div>
-  <img id="meme" src="" alt="Meme vui" />
 
   <div id="leaderboard">
     <h2>Bảng xếp hạng người chơi</h2>
@@ -157,7 +151,6 @@
   <script>
     const form = document.getElementById('infoForm');
     const result = document.getElementById('result');
-    const meme = document.getElementById('meme');
     const leaderboardList = document.getElementById('leaderboardList');
     const audioLaugh = document.getElementById('audioLaugh');
 
@@ -205,21 +198,16 @@
       }
 
       let message = '';
-      let memeUrl = '';
 
       if (momweight > 55) {
         message = `Mẹ mày béo 😳`;
-        memeUrl = 'https://i.imgur.com/WaL6ZQj.jpeg';
         speakVietnamese('Mẹ bạn béo');
       } else {
         message = `Mẹ mày gầy 😌`;
-        memeUrl = 'https://i.imgur.com/0y8Ftya.jpeg';
         speakVietnamese('Mẹ bạn gầy');
       }
 
       result.textContent = message;
-      meme.src = memeUrl;
-      meme.style.display = 'block';
       result.className = 'result show';
 
       players.push({ name: username, mom: momname, weight: momweight });
