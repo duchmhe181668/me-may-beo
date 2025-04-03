@@ -89,11 +89,22 @@
       padding: 20px;
       border-radius: 12px;
       color: #fff;
-      max-width: 400px;
+      max-width: 600px;
       width: 100%;
     }
     #leaderboard h2 {
       margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    th {
+      background-color: rgba(255,255,255,0.15);
     }
     @keyframes confetti-fall {
       0% { transform: translateY(-100px) rotateZ(0); opacity: 1; }
@@ -122,7 +133,16 @@
 
   <div id="leaderboard">
     <h2>Bảng xếp hạng người chơi</h2>
-    <ul id="leaderboardList"></ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Tên bạn</th>
+          <th>Tên mẹ bạn</th>
+          <th>Cân nặng</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardList"></tbody>
+    </table>
   </div>
 
   <div class="credit">@hmduc</div>
@@ -160,9 +180,9 @@
     function updateLeaderboard() {
       leaderboardList.innerHTML = '';
       players.slice(-5).reverse().forEach(player => {
-        const li = document.createElement('li');
-        li.textContent = `${player.name}: ${player.result}`;
-        leaderboardList.appendChild(li);
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${player.name}</td><td>${player.mom}</td><td>${player.weight} kg</td>`;
+        leaderboardList.appendChild(row);
       });
       localStorage.setItem('leaderboard', JSON.stringify(players));
     }
@@ -198,7 +218,7 @@
       meme.style.display = 'block';
       result.className = 'result show';
 
-      players.push({ name: username, result: message });
+      players.push({ name: username, mom: momname, weight: momweight });
       updateLeaderboard();
       audioLaugh.play();
       createConfetti();
